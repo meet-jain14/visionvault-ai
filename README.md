@@ -57,20 +57,19 @@ An AI-powered image intelligence platform that enables semantic image search, au
 # 📸 Screenshots
 
 ## Home Page
-
+<img width="1919" height="863" alt="VisionVault_homepage" src="https://github.com/user-attachments/assets/93f7c35d-e22b-4c9b-aea3-09bb3a2441be" />
 
 
 ## Upload & AI Captioning
-
+<img width="1574" height="338" alt="VisionVault_upload" src="https://github.com/user-attachments/assets/28cca3d1-8cf1-482a-aa6c-fe061a93e772" />
 
 
 ## Semantic Search
-
+<img width="1580" height="354" alt="VisionVault_search" src="https://github.com/user-attachments/assets/b701592f-d29f-4685-9afb-faca7218d789" />
 
 
 ## Dataset Gallery
-
-
+<img width="965" height="280" alt="VisionVault_gallery1" src="https://github.com/user-attachments/assets/1eae4dab-22a7-48d0-beec-9deb3ff40306" />
 
 ---
 
