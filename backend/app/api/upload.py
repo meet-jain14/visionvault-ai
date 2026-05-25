@@ -1,39 +1,87 @@
 from fastapi import APIRouter, UploadFile, File
+from typing import List
 import os
-import shutil
+
 from app.services.caption_service import generate_caption
 from app.services.embedding_service import generate_image_embedding
 from app.services.vector_db import store_embedding
 
 router = APIRouter()
 
-UPLOAD_DIR = "datasets/uploads"
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(__file__)
+    )
+)
+
+UPLOAD_DIR = os.path.join(
+    BASE_DIR,
+    "datasets",
+    "uploads"
+)
+
+os.makedirs(
+    UPLOAD_DIR,
+    exist_ok=True
+)
 
 @router.post("/upload")
-async def upload_image(
-    file: UploadFile = File(...)
+async def upload_images(
+    files: List[UploadFile] = File(...)
 ):
-    file_path = os.path.join(
-        UPLOAD_DIR,
-        file.filename
-    )
 
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(
-            file.file,
-            buffer
+    uploaded_results = []
+
+    for file in files:
+
+        clean_filename = os.path.basename(
+            file.filename
         )
-    caption = generate_caption(file_path)
-    embedding = generate_image_embedding(
-        file_path
-    )
-    store_embedding(
-        image_id=file.filename,
-        embedding=embedding,
-        caption=caption
-    )
+
+        file_path = os.path.join(
+            UPLOAD_DIR,
+            clean_filename
+        )
+
+        with open(
+            file_path,
+            "wb"
+        ) as buffer:
+
+            buffer.write(
+                await file.read()
+            )
+
+        caption = generate_caption(
+            file_path
+        )
+
+        embedding = generate_image_embedding(
+            file_path
+        )
+
+        store_embedding(
+            clean_filename,
+            embedding,
+            caption
+        )
+
+        uploaded_results.append({
+
+            "filename":
+            clean_filename,
+
+            "caption":
+            caption
+
+        })
+
     return {
-        "filename": file.filename,
-        "status": "uploaded successfully",
-        "caption": caption
+
+        "status":
+        "dataset uploaded successfully",
+
+        "processed_images":
+        uploaded_results
+
     }

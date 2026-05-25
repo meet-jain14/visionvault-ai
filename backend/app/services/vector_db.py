@@ -5,7 +5,10 @@ client = chromadb.PersistentClient(
 )
 
 collection = client.get_or_create_collection(
-    name="visionvault_images"
+    name="visionvault_images",
+    metadata={
+        "hnsw:space": "cosine"
+    }
 )
 
 def store_embedding(
@@ -26,7 +29,7 @@ def store_embedding(
 
 def search_similar(
     embedding,
-    top_k=5
+    top_k=3
 ):
     results = collection.query(
         query_embeddings=[embedding],

@@ -2,10 +2,12 @@
 
 import axios from "axios";
 import { useState } from "react";
+import { useDropzone } from "react-dropzone";
 
 export default function UploadSection() {
 
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] =
+    useState<File[]>([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -14,18 +16,42 @@ export default function UploadSection() {
   const [preview, setPreview] =
     useState<string | null>(null);
 
+    const {
+
+      getRootProps,
+      getInputProps,
+      isDragActive
+    
+    } = useDropzone({
+    
+      onDrop: (
+        acceptedFiles
+      ) => {
+    
+        setFiles(
+          acceptedFiles
+        );
+    
+      }
+    
+    });
+
   async function handleUpload() {
 
-    if (!file) return;
+    if (!files.length) return;
 
     setLoading(true);
 
     const formData = new FormData();
 
-    formData.append(
-      "file",
-      file
-    );
+    files.forEach((file) => {
+
+      formData.append(
+        "files",
+        file
+      );
+    
+    });
 
     try {
 
@@ -36,6 +62,7 @@ export default function UploadSection() {
         );
 
       setResult(response.data);
+      console.log(response.data);
 
     } catch (error) {
 
@@ -55,28 +82,78 @@ export default function UploadSection() {
         Upload Image
       </h2>
 
-      <input
-        type="file"
-        onChange={(e) => {
+      <div
+        {...getRootProps()}
+        className={`
+          mt-6
+          flex
+          cursor-pointer
+          flex-col
+          items-center
+          justify-center
+          rounded-3xl
+          border
+          border-dashed
+          p-12
+          text-center
+          transition-all
+          duration-300
 
-          const selectedFile =
-            e.target.files?.[0] || null;
-        
-          setFile(selectedFile);
-        
-          if (selectedFile) {
-        
-            setPreview(
-              URL.createObjectURL(
-                selectedFile
-              )
-            );
-        
+          ${
+            isDragActive
+
+            ? "border-[#00ffae] bg-[#00ffae]/10"
+
+            : "border-white/10 bg-white/[0.03]"
           }
-        
-        }}
-        className="mb-6 block w-full rounded-xl border border-white/10 bg-black/30 p-4 text-sm"
-      />
+        `}
+      >
+
+        <input
+          {...getInputProps()}
+        />
+
+        <p
+          className="
+            text-lg
+            font-medium
+            text-white
+          "
+        >
+          Drag & drop images here
+        </p>
+
+        <p
+          className="
+            mt-2
+            text-sm
+            text-gray-400
+          "
+        >
+          or click to browse folders
+        </p>
+
+        {
+
+          files.length > 0 && (
+
+            <p
+              className="
+                mt-6
+                text-sm
+                text-[#00ffae]
+              "
+            >
+              {files.length}
+              {" "}
+              image(s) selected
+            </p>
+
+          )
+
+        }
+
+      </div>
       {preview && (
 
         <div className="mb-6 flex justify-center">
@@ -129,7 +206,7 @@ export default function UploadSection() {
       >
         {
           loading
-            ? "Uploading..."
+            ? "Analyzing Images..."
             : "Upload & Analyze"
         }
       </button>
