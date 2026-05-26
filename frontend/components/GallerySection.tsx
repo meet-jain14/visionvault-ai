@@ -30,7 +30,7 @@ export default function GallerySection() {
 
       const response =
         await axios.get(
-          "process.env.NEXT_PUBLIC_API_URL/api/images"
+          "http://127.0.0.1:8000/api/images"
         );
 
       setImages(response.data);
@@ -209,7 +209,7 @@ export default function GallerySection() {
                 >
 
                   <img
-                    src={`process.env.NEXT_PUBLIC_API_URL${image.path}`}
+                    src={`http://127.0.0.1:8000${image.path}`}
 
                     alt={image.filename}
 
@@ -267,7 +267,7 @@ export default function GallerySection() {
       >
 
         <img
-          src={`process.env.NEXT_PUBLIC_API_URL${selectedImage.path}`}
+          src={`http://127.0.0.1:8000${selectedImage.path}`}
 
           alt={selectedImage.filename}
 

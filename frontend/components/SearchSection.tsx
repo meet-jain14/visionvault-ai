@@ -36,7 +36,7 @@ export default function SearchSection() {
 
       const response =
         await axios.get(
-          `process.env.NEXT_PUBLIC_API_URL/api/search?query=${query}`
+          `http://127.0.0.1:8000/api/search?query=${query}`
         );
 
       const formattedResults =
@@ -86,7 +86,7 @@ export default function SearchSection() {
   
       const response =
         await axios.post(
-          "process.env.NEXT_PUBLIC_API_URL/api/search-by-image",
+          "http://127.0.0.1:8000/api/search-by-image",
           formData
         );
   
@@ -363,7 +363,7 @@ export default function SearchSection() {
           >
 
             <img
-              src={`process.env.NEXT_PUBLIC_API_URL/datasets/uploads/${result.id}`}
+              src={`http://127.0.0.1:8000/datasets/uploads/${result.id}`}
 
               alt={result.id}
 
@@ -451,7 +451,7 @@ export default function SearchSection() {
 
               <img
                 src={
-                  `process.env.NEXT_PUBLIC_API_URL/datasets/uploads/${selectedImage.id}`
+                  `http://127.0.0.1:8000/datasets/uploads/${selectedImage.id}`
                 }
 
                 alt=""
