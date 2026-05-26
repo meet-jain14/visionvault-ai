@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface ImageItem {
   filename: string;
@@ -15,6 +16,8 @@ export default function GallerySection() {
   
   const [expanded, setExpanded] =
     useState(false);
+  const [selectedImage, setSelectedImage] =
+    useState<ImageItem | null>(null);
 
   const displayedImages =
     expanded
@@ -27,7 +30,7 @@ export default function GallerySection() {
 
       const response =
         await axios.get(
-          "http://127.0.0.1:8000/api/images"
+          "process.env.NEXT_PUBLIC_API_URL/api/images"
         );
 
       setImages(response.data);
@@ -46,7 +49,7 @@ export default function GallerySection() {
   }, []);
 
   return (
-    <section id="gallery" className="scroll-mt-36 mt-20">
+    <section id="gallery" className="scroll-mt-36 mt-20 w-full">
 
       <div
         className="
@@ -108,52 +111,198 @@ export default function GallerySection() {
 
       </div>
 
-      <div className="grid gap-6 transition-all duration-500 ease-in-out md:grid-cols-2 lg:grid-cols-3">
-
-        {displayedImages.map((image) => (
+      {
+        images.length === 0 ? (
 
           <div
-            key={image.filename}
             className="
-              overflow-hidden
-              rounded-[28px]
+              mt-10
+              rounded-3xl
               border
+              border-dashed
               border-white/10
-              bg-white/[0.03]
-              transition-all
-              duration-300
-              hover:-translate-y-1
-              hover:border-[#00ffae]/20
-              animate-in
-              fade-in
-              slide-in-from-bottom-4
+              bg-white/[0.02]
+              p-16
+              text-center
             "
           >
 
-            <img
-              src={`http://127.0.0.1:8000${image.path}`}
-              alt={image.filename}
+            <p
               className="
-                h-64
-                w-full
-                object-cover
+                text-2xl
+                font-semibold
+                text-white
               "
-            />
+            >
+              No images uploaded yet
+            </p>
 
-            <div className="p-5">
-
-              <p className="truncate text-sm text-gray-400">
-                {image.filename}
-              </p>
-
-            </div>
+            <p
+              className="
+                mt-3
+                text-gray-400
+              "
+            >
+              Upload a dataset to begin semantic search.
+            </p>
 
           </div>
 
-        ))}
+        ) : (
+
+          <motion.div
+           
+            initial={{
+              opacity: 0,
+              y: 40
+            }}
+
+            whileInView={{
+              opacity: 1,
+              y: 0
+            }}
+
+            transition={{
+              duration: 0.6
+            }}
+
+            viewport={{
+              once: true
+            }}
+
+            className="
+              mt-10
+              grid
+              w-full
+              grid-cols-1
+              gap-6
+              md:grid-cols-2
+              lg:grid-cols-3
+            "
+          >
+
+            {displayedImages.map(
+              (image) => (
+
+                <div
+                  key={image.filename}
+
+                
+                  onClick={() =>
+                    setSelectedImage(image)
+                  }
+
+                  className="
+                    cursor-pointer
+                    w-full
+                    overflow-hidden
+                    rounded-[28px]
+                    border
+                    border-white/10
+                    bg-black/30
+                    transition-all
+                    duration-300
+                    hover:-translate-y-2
+                    hover:border-[#00ffae]/40
+                    hover:shadow-[0_0_40px_rgba(0,255,174,0.1)]
+                  "
+                >
+
+                  <img
+                    src={`process.env.NEXT_PUBLIC_API_URL${image.path}`}
+
+                    alt={image.filename}
+
+                    className="
+                      h-64
+                      w-full
+                      object-cover
+                    "
+                  />
+
+                </div>
+
+              )
+            )}
+
+          </motion.div>
+
+        )
+      }
+
+{
+  selectedImage && (
+
+    <div
+      className="
+        fixed
+        inset-0
+        z-50
+        flex
+        items-center
+        justify-center
+        bg-black/80
+        p-6
+        backdrop-blur-sm
+      "
+
+      onClick={() =>
+        setSelectedImage(null)
+      }
+    >
+
+      <div
+        className="
+          max-w-5xl
+          overflow-hidden
+          rounded-3xl
+          border
+          border-white/10
+          bg-[#0a0a0a]
+        "
+
+        onClick={(e) =>
+          e.stopPropagation()
+        }
+      >
+
+        <img
+          src={`process.env.NEXT_PUBLIC_API_URL${selectedImage.path}`}
+
+          alt={selectedImage.filename}
+
+          className="
+            max-h-[80vh]
+            w-full
+            object-cover
+          "
+        />
+
+        <div
+          className="
+            border-t
+            border-white/10
+            p-5
+          "
+        >
+
+          <p
+            className="
+              text-sm
+              text-gray-400
+            "
+          >
+            {selectedImage.filename}
+          </p>
+
+        </div>
 
       </div>
-      
+
+    </div>
+
+  )
+}
 
     </section>
   );
