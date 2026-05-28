@@ -431,17 +431,7 @@ export default function SearchSection() {
                 text-[#00ffae]
               "
             >
-              Match:
-              {" "}
-
-              {
-                (
-                  (
-                    1 - result.distance
-                  ) * 100
-                ).toFixed(0)
-              }
-              %
+              AI Match
             </p>
 
           </div>

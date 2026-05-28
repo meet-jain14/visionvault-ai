@@ -1,200 +1,317 @@
-# VisionVault AI 🚀
+VisionVault AI 🚀
 
-An AI-powered image intelligence platform that enables semantic image search, automated caption generation, and multimodal dataset exploration using modern computer vision and vector search techniques.
+An AI-powered image intelligence and semantic retrieval platform that allows users to upload, analyze, caption, and search images using multimodal embeddings and semantic similarity.
 
----
+Built using modern AI pipelines including BLIP image captioning, OpenCLIP embeddings, ChromaDB vector search, FastAPI, and Next.js.
 
-## ✨ Features
+✨ Features
+🖼 AI Image Captioning
 
-* 🔍 Semantic Image Search using CLIP embeddings
-* 🧠 AI-generated captions using BLIP
-* 📂 Upload and manage image datasets
-* ⚡ FastAPI backend for AI inference workflows
-* 🗄️ ChromaDB vector database integration
-* 🎨 Modern Next.js + Tailwind frontend
-* 🖼️ Responsive image gallery with expandable layout
-* 🌌 Glassmorphic UI with smooth navigation
+Automatically generates natural-language captions for uploaded images using BLIP.
 
----
+🔍 Semantic Search
 
-# 🛠️ Tech Stack
+Search images using:
 
-## Frontend
+text queries
+image queries
+multimodal embeddings
 
-* Next.js
-* TypeScript
-* Tailwind CSS
-* Framer Motion
-* Axios
+instead of relying on filenames or tags.
 
-## Backend
+📂 Multi-Image Upload
 
-* FastAPI
-* Python
-* OpenCLIP
-* HuggingFace Transformers
-* ChromaDB
-* Uvicorn
+Supports:
 
-## AI Models
+multiple image upload
+folder upload
+drag & drop upload UX
+🧠 Vector Database Retrieval
 
-* BLIP Image Captioning
-* OpenCLIP (ViT-B-32)
+Uses ChromaDB for storing and retrieving semantic embeddings efficiently.
 
----
+🖥 Modern AI UI
 
-# 🧠 How It Works
+Premium dark-themed futuristic interface featuring:
 
-1. User uploads an image.
-2. Backend generates an AI caption using BLIP.
-3. OpenCLIP generates multimodal embeddings.
-4. Embeddings are stored inside ChromaDB.
-5. Users can search images using natural language.
-6. Semantic similarity retrieval returns relevant images.
+glassmorphism
+hover animations
+modal previews
+responsive layouts
+image download support
+📸 Fullscreen Modal Preview
 
----
+Click any image to open a cinematic fullscreen preview experience.
 
-# 📸 Screenshots
+🛠 Tech Stack
+Frontend
+Next.js
+TypeScript
+Tailwind CSS
+Axios
+Lucide React
+Backend
+FastAPI
+Python
+Uvicorn
+AI / ML
+BLIP (Salesforce)
+OpenCLIP
+PyTorch
+ChromaDB
+🧠 AI Pipeline
+Image Upload
+      ↓
+BLIP Caption Generation
+      ↓
+OpenCLIP Embedding Creation
+      ↓
+Store Embeddings in ChromaDB
+      ↓
+Semantic Retrieval via Text/Image Search
+📸 Project Screenshots
+Hero Section
 
-## Home Page
-<img width="1919" height="863" alt="VisionVault_homepage" src="https://github.com/user-attachments/assets/93f7c35d-e22b-4c9b-aea3-09bb3a2441be" />
+Upload Interface
 
+Semantic Search
 
-## Upload & AI Captioning
-<img width="1574" height="338" alt="VisionVault_upload" src="https://github.com/user-attachments/assets/28cca3d1-8cf1-482a-aa6c-fe061a93e772" />
+AI Gallery
 
+Modal Preview
 
-## Semantic Search
-<img width="1580" height="354" alt="VisionVault_search" src="https://github.com/user-attachments/assets/b701592f-d29f-4685-9afb-faca7218d789" />
-
-
-## Dataset Gallery
-<img width="965" height="280" alt="VisionVault_gallery1" src="https://github.com/user-attachments/assets/1eae4dab-22a7-48d0-beec-9deb3ff40306" />
-
----
-
-# 🚀 Local Setup
-
-## 1. Clone Repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/visionvault-ai.git
-cd visionvault-ai
-```
-
----
-
-## 2. Backend Setup
-
-```bash
-cd backend
-python -m venv venv
-```
-
-### Activate Virtual Environment
-
-#### Windows
-
-```bash
-.\venv\Scripts\activate
-```
-
-#### Mac/Linux
-
-```bash
-source venv/bin/activate
-```
-
----
-
-## 3. Install Backend Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 4. Run Backend
-
-```bash
-uvicorn app.main:app --reload
-```
-
-Backend runs on:
-
-```bash
-http://127.0.0.1:8000
-```
-
----
-
-## 5. Frontend Setup
-
-```bash
+⚙️ Installation
+1️⃣ Clone Repository
+git clone https://github.com/meet-jain14/visionvault-ai.git
+2️⃣ Frontend Setup
 cd frontend
 npm install
-```
-
----
-
-## 6. Run Frontend
-
-```bash
 npm run dev
-```
 
 Frontend runs on:
 
-```bash
 http://localhost:3000
-```
+3️⃣ Backend Setup
+cd backend
 
----
+python -m venv venv
 
-# 📁 Project Structure
+venv\Scripts\activate
 
-```bash
+pip install -r requirements.txt
+
+uvicorn app.main:app
+
+Backend runs on:
+
+http://127.0.0.1:8000
+📂 Folder Structure
 visionvault-ai/
+│
+├── frontend/
 │
 ├── backend/
 │   ├── app/
-│   │   ├── api/
-│   │   ├── services/
-│   │   └── main.py
-│   ├── datasets/
-│   └── chromadb/
-│
-├── frontend/
-│   ├── app/
-│   ├── components/
-│   └── public/
+│   ├── datasets/uploads/
+│   ├── services/
+│   └── api/
 │
 └── README.md
-```
+🚀 Future Enhancements
+PDF image extraction
+OCR support
+AI tagging system
+Background task queue
+Cloud storage integration
+Authentication system
+Image clustering
+Semantic filtering
+Video frame search
+AI-generated metadata summaries
+📈 Real-World Use Cases
+Digital asset management
+AI-powered image retrieval
+Research dataset exploration
+Media organization
+Smart gallery systems
+Document image extraction
+Visual semantic search engines
+🌟 Highlights
 
----
+✅ Multimodal AI search
+✅ BLIP caption generation
+✅ OpenCLIP semantic embeddings
+✅ ChromaDB vector retrieval
+✅ Full-stack AI architecture
+✅ Production-style UI/UX
+✅ Responsive modern design
 
-# 💡 Future Improvements
+👨‍💻 Author
 
-* User authentication
-* Cloud image storage
-* Drag & drop uploads
-* AI tagging system
-* Hybrid vector search
-* Docker deployment
-* Async background processing
+Meet Jain
 
----
+GitHub:
+meet-jain14
 
-# 👨‍💻 Author
+Project Repository:
+VisionVault AI 🚀
 
-**Meet Jain**
+An AI-powered image intelligence and semantic retrieval platform that allows users to upload, analyze, caption, and search images using multimodal embeddings and semantic similarity.
 
-* LinkedIn: https://www.linkedin.com/in/meet-jain-b32164325
-* GitHub: [https://github.com/meet-jain14]
+Built using modern AI pipelines including BLIP image captioning, OpenCLIP embeddings, ChromaDB vector search, FastAPI, and Next.js.
 
----
+✨ Features
+🖼 AI Image Captioning
 
-# ⭐ Support
-If you liked this project, consider giving it a star on GitHub ⭐
+Automatically generates natural-language captions for uploaded images using BLIP.
+
+🔍 Semantic Search
+
+Search images using:
+
+- text queries
+- image queries
+- multimodal embeddings
+
+instead of relying on filenames or tags.
+
+📂 Multi-Image Upload
+Supports:
+multiple image upload
+folder upload
+drag & drop upload UX
+
+🧠 Vector Database Retrieval
+Uses ChromaDB for storing and retrieving semantic embeddings efficiently.
+
+🖥 Modern AI UI
+Premium dark-themed futuristic interface featuring:
+- glassmorphism
+- hover animations
+- modal previews
+- responsive layouts
+- image download support
+
+📸 Fullscreen Modal Preview
+Click any image to open a cinematic fullscreen preview experience.
+
+🛠 Tech Stack:
+Frontend
+Next.js
+TypeScript
+Tailwind CSS
+Axios
+Lucide React
+Backend
+FastAPI
+Python
+Uvicorn
+AI / ML
+BLIP (Salesforce)
+OpenCLIP
+PyTorch
+ChromaDB
+
+🧠 AI Pipeline
+Image Upload
+      ↓
+BLIP Caption Generation
+      ↓
+OpenCLIP Embedding Creation
+      ↓
+Store Embeddings in ChromaDB
+      ↓
+Semantic Retrieval via Text/Image Search
+
+📸 Project Screenshots
+Hero Section
+
+Upload Interface
+
+Semantic Search
+
+AI Gallery
+
+Modal Preview
+
+⚙️ Installation
+
+1️⃣ Clone Repository
+
+git clone https://github.com/meet-jain14/visionvault-ai.git
+
+2️⃣ Frontend Setup
+
+cd frontend
+npm install
+npm run dev
+
+Frontend runs on:
+http://localhost:3000
+
+3️⃣ Backend Setup
+
+cd backend
+
+python -m venv venv
+
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+uvicorn app.main:app
+
+Backend runs on:
+http://127.0.0.1:8000
+
+📂 Folder Structure
+visionvault-ai/
+│
+├── frontend/
+│
+├── backend/
+│   ├── app/
+│   ├── datasets/uploads/
+│   ├── services/
+│   └── api/
+│
+└── README.md
+
+🚀 Future Enhancements
+PDF image extraction
+OCR support
+AI tagging system
+Background task queue
+Cloud storage integration
+Authentication system
+Image clustering
+Semantic filtering
+Video frame search
+AI-generated metadata summaries
+📈 Real-World Use Cases
+Digital asset management
+AI-powered image retrieval
+Research dataset exploration
+Media organization
+Smart gallery systems
+Document image extraction
+Visual semantic search engines
+🌟 Highlights
+
+✅ Multimodal AI search
+✅ BLIP caption generation
+✅ OpenCLIP semantic embeddings
+✅ ChromaDB vector retrieval
+✅ Full-stack AI architecture
+✅ Production-style UI/UX
+✅ Responsive modern design
+
+👨‍💻 Author
+
+Meet Jain
+
+GitHub:
+https://github.com/meet-jain14
+
+Project Repository:
+https://github.com/meet-jain14/visionvault-ai
