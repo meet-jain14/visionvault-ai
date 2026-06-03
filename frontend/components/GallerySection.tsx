@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Download } from "lucide-react";
 
 interface ImageItem {
   filename: string;
@@ -208,17 +209,56 @@ export default function GallerySection() {
                   "
                 >
 
-                  <img
-                    src={`http://127.0.0.1:8000${image.path}`}
+<div className="relative">
 
-                    alt={image.filename}
+<img
+  src={`http://127.0.0.1:8000${image.path}`}
+  alt={image.filename}
+  className="
+    h-64
+    w-full
+    object-cover
+  "
+/>
 
-                    className="
-                      h-64
-                      w-full
-                      object-cover
-                    "
-                  />
+<a
+  href={`http://127.0.0.1:8000${image.path}`}
+
+  target="_blank"
+
+  rel="noopener noreferrer"
+
+  onClick={(e) =>
+    e.stopPropagation()
+  }
+
+  className="
+    absolute
+    right-4
+    top-4
+    z-10
+    rounded-full
+    border
+    border-white/10
+    bg-black/50
+    p-3
+    backdrop-blur-md
+    transition-all
+    duration-300
+    hover:scale-110
+    hover:border-[#00ffae]/40
+    hover:bg-[#00ffae]/10
+  "
+>
+
+  <Download
+    size={18}
+    className="text-white"
+  />
+
+</a>
+
+</div>
 
                 </div>
 

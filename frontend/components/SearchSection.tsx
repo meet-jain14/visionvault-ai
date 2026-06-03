@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useState } from "react";
+import { Download } from "lucide-react";
 
 interface SearchResult {
   id: string;
@@ -362,19 +363,59 @@ export default function SearchSection() {
             "
           >
 
-            <img
-              src={`http://127.0.0.1:8000/datasets/uploads/${result.id}`}
+<div className="relative mb-4">
 
-              alt={result.id}
+<img
+  src={`http://127.0.0.1:8000/datasets/uploads/${result.id}`}
 
-              className="
-                mb-4
-                h-56
-                w-full
-                rounded-2xl
-                object-cover
-              "
-            />
+  alt={result.id}
+
+  className="
+    h-56
+    w-full
+    rounded-2xl
+    object-cover
+  "
+/>
+
+<a
+  href={`http://127.0.0.1:8000/datasets/uploads/${result.id}`}
+
+  target="_blank"
+
+  rel="noopener noreferrer"
+
+  onClick={(e) =>
+    e.stopPropagation()
+  }
+
+  className="
+    absolute
+    right-4
+    top-4
+    z-10
+    rounded-full
+    border
+    border-white/10
+    bg-black/50
+    p-3
+    backdrop-blur-md
+    transition-all
+    duration-300
+    hover:scale-110
+    hover:border-[#00ffae]/40
+    hover:bg-[#00ffae]/10
+  "
+>
+
+  <Download
+    size={18}
+    className="text-white"
+  />
+
+</a>
+
+</div>
 
             <p
               className="
