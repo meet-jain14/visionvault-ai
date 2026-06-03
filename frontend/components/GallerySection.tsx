@@ -1,9 +1,9 @@
 "use client";
 
 import axios from "axios";
+import { Download } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Download } from "lucide-react";
 
 interface ImageItem {
   filename: string;
@@ -48,7 +48,7 @@ export default function GallerySection() {
     fetchImages();
 
   }, []);
-
+  
   return (
     <section id="gallery" className="scroll-mt-36 mt-20 w-full">
 
@@ -208,57 +208,58 @@ export default function GallerySection() {
                     hover:shadow-[0_0_40px_rgba(0,255,174,0.1)]
                   "
                 >
+                 
 
-<div className="relative">
+                <div className="relative">
 
-<img
-  src={`http://127.0.0.1:8000${image.path}`}
-  alt={image.filename}
-  className="
-    h-64
-    w-full
-    object-cover
-  "
-/>
+                <img
+                  src={`http://127.0.0.1:8000${image.path}`}
+                  alt={image.filename}
+                  className="
+                    h-64
+                    w-full
+                    object-cover
+                  "
+                />
 
-<a
-  href={`http://127.0.0.1:8000${image.path}`}
+                <a
+                  href={`http://127.0.0.1:8000${image.path}`}
 
-  target="_blank"
+                  target="_blank"
 
-  rel="noopener noreferrer"
+                  rel="noopener noreferrer"
 
-  onClick={(e) =>
-    e.stopPropagation()
-  }
+                  onClick={(e) =>
+                    e.stopPropagation()
+                  }
 
-  className="
-    absolute
-    right-4
-    top-4
-    z-10
-    rounded-full
-    border
-    border-white/10
-    bg-black/50
-    p-3
-    backdrop-blur-md
-    transition-all
-    duration-300
-    hover:scale-110
-    hover:border-[#00ffae]/40
-    hover:bg-[#00ffae]/10
-  "
->
+                  className="
+                    absolute
+                    right-4
+                    top-4
+                    z-10
+                    rounded-full
+                    border
+                    border-white/10
+                    bg-black/50
+                    p-3
+                    backdrop-blur-md
+                    transition-all
+                    duration-300
+                    hover:scale-110
+                    hover:border-[#00ffae]/40
+                    hover:bg-[#00ffae]/10
+                  "
+                >
 
-  <Download
-    size={18}
-    className="text-white"
-  />
+                  <Download
+                    size={18}
+                    className="text-white"
+                  />
 
-</a>
+                </a>
 
-</div>
+                </div>
 
                 </div>
 

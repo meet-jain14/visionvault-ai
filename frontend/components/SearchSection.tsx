@@ -1,8 +1,8 @@
 "use client";
 
 import axios from "axios";
-import { useState } from "react";
 import { Download } from "lucide-react";
+import { useState } from "react";
 
 interface SearchResult {
   id: string;
@@ -26,7 +26,6 @@ export default function SearchSection() {
 
   const [selectedImage, setSelectedImage] =
     useState<any>(null);
-
   async function handleSearch() {
 
     if (!query) return;
@@ -349,6 +348,7 @@ export default function SearchSection() {
             }
 
             className="
+              relative
               cursor-pointer
               rounded-[28px]
               border
@@ -435,17 +435,7 @@ export default function SearchSection() {
                 text-[#00ffae]
               "
             >
-              Match:
-              {" "}
-
-              {
-                (
-                  (
-                    1 - result.distance
-                  ) * 100
-                ).toFixed(0)
-              }
-              %
+              AI Match
             </p>
 
           </div>
