@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.upload import router as upload_router
-from app.api.search import router as search_router
-from app.api.images import router as images_router
+from .api.upload import router as upload_router
+from .api.search import router as search_router
+from .api.images import router as images_router
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
