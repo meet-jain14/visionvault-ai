@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { apiUrl } from "@/lib/api";
 
 export default function UploadSection() {
 
@@ -57,7 +58,7 @@ export default function UploadSection() {
 
       const response =
         await axios.post(
-          "http://127.0.0.1:8000/api/upload",
+          apiUrl("/api/upload"),
           formData
         );
 

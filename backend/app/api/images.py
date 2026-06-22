@@ -1,9 +1,12 @@
 from fastapi import APIRouter
 import os
+from pathlib import Path
 
 router = APIRouter()
 
-UPLOAD_DIR = "datasets/uploads"
+BASE_DIR = Path(__file__).resolve().parents[2]
+UPLOAD_DIR = BASE_DIR / "datasets" / "uploads"
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 ALLOWED_EXTENSIONS = (
     ".png",
@@ -17,9 +20,7 @@ async def get_images():
 
     images = []
 
-    for filename in os.listdir(
-        UPLOAD_DIR
-    ):
+    for filename in os.listdir(UPLOAD_DIR):
 
         if not filename.lower().endswith(
             ALLOWED_EXTENSIONS

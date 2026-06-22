@@ -3,6 +3,7 @@
 import axios from "axios";
 import { Download } from "lucide-react";
 import { useState } from "react";
+import { apiUrl } from "@/lib/api";
 
 interface SearchResult {
   id: string;
@@ -36,7 +37,7 @@ export default function SearchSection() {
 
       const response =
         await axios.get(
-          `http://127.0.0.1:8000/api/search?query=${query}`
+          apiUrl(`/api/search?query=${encodeURIComponent(query)}`)
         );
 
       const formattedResults =
@@ -86,7 +87,7 @@ export default function SearchSection() {
   
       const response =
         await axios.post(
-          "http://127.0.0.1:8000/api/search-by-image",
+          apiUrl("/api/search-by-image"),
           formData
         );
   
@@ -366,7 +367,7 @@ export default function SearchSection() {
 <div className="relative mb-4">
 
 <img
-  src={`http://127.0.0.1:8000/datasets/uploads/${result.id}`}
+  src={apiUrl(`/datasets/uploads/${result.id}`)}
 
   alt={result.id}
 
@@ -379,7 +380,7 @@ export default function SearchSection() {
 />
 
 <a
-  href={`http://127.0.0.1:8000/datasets/uploads/${result.id}`}
+  href={apiUrl(`/datasets/uploads/${result.id}`)}
 
   target="_blank"
 
@@ -482,7 +483,7 @@ export default function SearchSection() {
 
               <img
                 src={
-                  `http://127.0.0.1:8000/datasets/uploads/${selectedImage.id}`
+                  apiUrl(`/datasets/uploads/${selectedImage.id}`)
                 }
 
                 alt=""

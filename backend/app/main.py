@@ -4,6 +4,11 @@ from .api.upload import router as upload_router
 from .api.search import router as search_router
 from .api.images import router as images_router
 from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parents[1]
+DATASETS_DIR = BASE_DIR / "datasets"
+DATASETS_DIR.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(
     title="VisionVault AI",
@@ -21,7 +26,7 @@ app.add_middleware(
 )
 app.mount(
     "/datasets",
-    StaticFiles(directory="datasets"),
+    StaticFiles(directory=DATASETS_DIR),
     name="datasets"
 )
 app.include_router(

@@ -2,9 +2,9 @@ from fastapi import APIRouter, UploadFile, File
 from typing import List
 import os
 
-from app.services.caption_service import generate_caption
-from app.services.embedding_service import generate_image_embedding
-from app.services.vector_db import store_embedding
+from ..services.caption_service import generate_caption
+from ..services.embedding_service import generate_image_embedding
+from ..services.vector_db import store_embedding
 
 router = APIRouter()
 

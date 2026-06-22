@@ -1,8 +1,8 @@
 import os
 from fastapi import APIRouter
-from app.services.vector_db import search_similar
+from ..services.vector_db import search_similar
 from fastapi import UploadFile, File
-from app.services.embedding_service import (
+from ..services.embedding_service import (
     generate_text_embedding,
     generate_image_embedding
 )

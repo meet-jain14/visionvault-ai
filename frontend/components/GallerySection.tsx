@@ -4,6 +4,7 @@ import axios from "axios";
 import { Download } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { apiUrl } from "@/lib/api";
 
 interface ImageItem {
   filename: string;
@@ -31,7 +32,7 @@ export default function GallerySection() {
 
       const response =
         await axios.get(
-          "http://127.0.0.1:8000/api/images"
+          apiUrl("/api/images")
         );
 
       setImages(response.data);
@@ -213,7 +214,7 @@ export default function GallerySection() {
                 <div className="relative">
 
                 <img
-                  src={`http://127.0.0.1:8000${image.path}`}
+                  src={apiUrl(image.path)}
                   alt={image.filename}
                   className="
                     h-64
@@ -223,7 +224,7 @@ export default function GallerySection() {
                 />
 
                 <a
-                  href={`http://127.0.0.1:8000${image.path}`}
+                  href={apiUrl(image.path)}
 
                   target="_blank"
 
@@ -308,7 +309,7 @@ export default function GallerySection() {
       >
 
         <img
-          src={`http://127.0.0.1:8000${selectedImage.path}`}
+          src={apiUrl(selectedImage.path)}
 
           alt={selectedImage.filename}
 
