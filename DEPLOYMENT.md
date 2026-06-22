@@ -15,6 +15,14 @@ Backend (Render)
 - Set the `PORT` env var to the default Render `$PORT` (Render injects it automatically).
 - Use `render.yaml` (included) to configure auto-deploy from your repo.
 
+Troubleshooting tip (ModuleNotFoundError: No module named 'app')
+- If Render logs show "ModuleNotFoundError: No module named 'app'", it means Python couldn't import `app` because the package is under `backend/app`.
+- Fixes:
+	- Update the start command to use the full module path: `uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT` (this repo's `render.yaml` is already updated).
+	- Or set `PYTHONPATH=backend` in your service env so `app` becomes importable: `PYTHONPATH=backend uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
+	- Alternatively, run Uvicorn from the `backend` directory: `cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
+
+
 Notes & caveats
 - The backend uses heavy ML libraries (torch, transformers, chromadb). Consider using a Docker service or a machine with sufficient RAM/CPU; Render free/small plans may not suffice.
 - Static `datasets/` folder mounted via FastAPI `StaticFiles` is ephemeral on most cloud hosts — use object storage (S3) for persistence in production.
