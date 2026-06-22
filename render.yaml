@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: visionvault-backend
+    env: python
+    # Optional: set your repo if you want Render to auto-deploy from it
+    # repo: https://github.com/meet-jain14/visionvault-ai.git
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
