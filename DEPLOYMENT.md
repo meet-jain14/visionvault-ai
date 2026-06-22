@@ -1,38 +1,100 @@
-Deployment steps
+# Deployment Guide
 
-Frontend (Vercel)
-- Connect your Git repository to Vercel.
-- In the project settings, set the Root Directory to `frontend`.
-- Vercel auto-detects Next.js; ensure build command is `npm run build` and output is default.
-- Add an environment variable `NEXT_PUBLIC_API_BASE_URL` with your Render backend URL (example: `https://your-backend.onrender.com`).
-- (Optional) Use `vercel --prod` or Vercel web UI to deploy.
+This project should be deployed as two services:
 
-Backend (Render)
-- Create a new Web Service on Render.
-- Environment: `Python 3` (or use Docker for custom images).
-- Build Command: `pip install -r requirements.txt`.
-- Start Command: `uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT`.
-- Set the `PORT` env var to the default Render `$PORT` (Render injects it automatically).
-- Use `render.yaml` (included) to configure auto-deploy from your repo.
+- Frontend: Vercel, using the `frontend` directory.
+- Backend: Hugging Face Spaces, using the root `Dockerfile`.
 
-Troubleshooting tip (ModuleNotFoundError: No module named 'app')
-- If Render logs show "ModuleNotFoundError: No module named 'app'", it means Python couldn't import `app` because the package is under `backend/app`.
-- Fixes:
-	- Update the start command to use the full module path: `uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT` (this repo's `render.yaml` is already updated).
-	- Or set `PYTHONPATH=backend` in your service env so `app` becomes importable: `PYTHONPATH=backend uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
-	- Alternatively, run Uvicorn from the `backend` directory: `cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
-- This repo also includes `.python-version` so Render does not default to Python 3.14.
+Small-memory web hosts are not recommended for the backend because the ML stack (`torch`, `transformers`, BLIP, OpenCLIP, ChromaDB) can exceed a 512Mi memory limit.
 
+## 1. Deploy the backend to Hugging Face Spaces
 
-Notes & caveats
-- The backend uses heavy ML libraries (torch, transformers, chromadb). Consider using a Docker service or a machine with sufficient RAM/CPU; Render free/small plans may not suffice.
-- Static `datasets/` folder mounted via FastAPI `StaticFiles` is ephemeral on most cloud hosts — use object storage (S3) for persistence in production.
-- CORS: backend already allows all origins; consider restricting in production and using environment-based config.
+1. Create or log in to a Hugging Face account.
+2. Open `https://huggingface.co/spaces`.
+3. Click **Create new Space**.
+4. Choose:
+   - **Space name:** `visionvault-backend` or any name you like.
+   - **SDK:** `Docker`
+   - **Visibility:** Public is easiest for a portfolio/demo. Private also works, but your frontend will need access to it.
+   - **Hardware:** Start with the free CPU Space.
+5. Create a Hugging Face access token:
+   - Go to **Settings > Access Tokens**.
+   - Create a token with read access.
+6. In your Space, go to **Settings > Repository secrets** and add:
+   ```txt
+   HF_TOKEN=your_huggingface_token
+   ```
+7. Push this repository to the Space repo.
 
-Files added
-- `frontend/vercel.json` – minimal Vercel config.
-- `render.yaml` – Render service template for the backend.
+   Option A, from the Hugging Face Space page:
+   ```bash
+   git remote add hf https://huggingface.co/spaces/YOUR_USERNAME/YOUR_SPACE_NAME
+   git push hf main
+   ```
 
-If you want, I can:
-- Create a `Dockerfile` for the backend and a Render Docker service definition.
-- Add a GitHub Actions workflow to deploy the frontend and backend automatically.
+   Option B, upload these files manually in the Space:
+   - `Dockerfile`
+   - `.dockerignore`
+   - `requirements.txt`
+   - `.python-version`
+   - the full `backend/` folder
+
+8. Wait for the Space build to finish.
+9. Test these URLs:
+   ```txt
+   https://YOUR_USERNAME-YOUR_SPACE_NAME.hf.space/
+   https://YOUR_USERNAME-YOUR_SPACE_NAME.hf.space/health
+   ```
+
+The backend starts with:
+
+```bash
+uvicorn backend.app.main:app --host 0.0.0.0 --port 7860
+```
+
+The Dockerfile also respects a `PORT` environment variable if the platform provides one.
+
+## 2. Deploy the frontend to Vercel
+
+1. Push this repo to GitHub.
+2. Create a new Vercel project from the GitHub repo.
+3. In Vercel project settings, set:
+   ```txt
+   Root Directory: frontend
+   Build Command: npm run build
+   ```
+4. Add this Vercel environment variable:
+   ```txt
+   NEXT_PUBLIC_API_BASE_URL=https://YOUR_USERNAME-YOUR_SPACE_NAME.hf.space
+   ```
+5. Redeploy the Vercel project.
+
+The frontend uses `NEXT_PUBLIC_API_BASE_URL` for all API, image, upload, and search calls. For local development, it falls back to `http://127.0.0.1:8000`.
+
+## 3. Local development
+
+Run the backend:
+
+```bash
+uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
+```
+
+Run the frontend:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Optional local frontend env file:
+
+```txt
+NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
+```
+
+## Notes
+
+- The first backend request may be slow because the ML models need to load.
+- Free Hugging Face Spaces can sleep when idle, so the first request after sleeping may take longer.
+- Uploaded images and local ChromaDB data are not a durable production database. For production, move uploaded files to object storage and store vector data in a hosted vector database.

@@ -132,11 +132,10 @@ npm run dev
 ### 3. Backend Setup
 
 ```bash
-cd backend
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
-uvicorn app.main:app
+uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
 ```
 
 > Backend runs on: `http://127.0.0.1:8000`
@@ -152,10 +151,10 @@ visionvault-ai/
 │
 ├── backend/
 │   ├── app/
-│   ├── datasets/uploads/
-│   ├── services/
-│   └── api/
+│   └── datasets/uploads/
 │
+├── Dockerfile
+├── requirements.txt
 └── README.md
 ```
 

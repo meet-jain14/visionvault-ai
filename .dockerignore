@@ -1,0 +1,17 @@
+.git
+.github
+.next
+.venv
+__pycache__
+*.pyc
+node_modules
+frontend/.next
+frontend/node_modules
+frontend/.env*
+.env
+.env.*
+chromadb
+backend/chromadb
+backend/datasets/uploads/*
+!backend/datasets/uploads/.gitkeep
+npm-debug.log*
