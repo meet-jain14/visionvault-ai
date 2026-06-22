@@ -6,8 +6,8 @@ services:
     # repo: https://github.com/meet-jain14/visionvault-ai.git
     plan: free
     buildCommand: pip install -r requirements.txt
-    # Use full module path since the FastAPI app lives under `backend/app`.
-    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    # Set PYTHONPATH to `backend`, then import the app package from `backend/app`.
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     envVars:
       - key: PYTHONUNBUFFERED
