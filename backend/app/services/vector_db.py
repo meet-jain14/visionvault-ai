@@ -37,3 +37,18 @@ def search_similar(
     )
 
     return results
+
+def get_caption(image_id: str):
+
+    result = collection.get(
+        ids=[image_id],
+        include=["documents"]
+    )
+
+    if (
+        result["documents"]
+        and len(result["documents"]) > 0
+    ):
+        return result["documents"][0]
+
+    return ""

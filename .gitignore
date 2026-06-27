@@ -1,5 +1,11 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# New VisionVault frontend
+visionvault-frontend/node_modules/
+visionvault-frontend/.next/
+visionvault-frontend/.env.local
+visionvault-frontend/next-env.d.ts
+
 # dependencies
 frontend/node_modules/
 backend/venv/

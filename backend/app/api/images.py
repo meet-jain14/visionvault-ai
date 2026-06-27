@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 import os
 from pathlib import Path
+from app.services.vector_db import get_caption
 
 router = APIRouter()
 
@@ -32,7 +33,10 @@ async def get_images():
             "filename": filename,
 
             "path":
-            f"/datasets/uploads/{filename}"
+            f"/datasets/uploads/{filename}",
+
+            "caption":
+            get_caption(filename)
 
         }
 
